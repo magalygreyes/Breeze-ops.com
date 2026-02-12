@@ -1,0 +1,2420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BreezeOps - Small Business Automation Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #0A4D3C;
+            --color-secondary: #14B8A6;
+            --color-accent: #FCD34D;
+            --color-bg: #FAFAF9;
+            --color-text: #1C1917;
+            --color-text-muted: #57534E;
+            --color-surface: #FFFFFF;
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .flow-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.12;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .flow-circle:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: var(--color-secondary);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .flow-circle:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            background: var(--color-accent);
+            bottom: 100px;
+            left: -50px;
+            animation-delay: 5s;
+        }
+
+        .flow-circle:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: var(--color-primary);
+            top: 50%;
+            right: 10%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.6s var(--ease-smooth);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--color-secondary);
+            border-radius: 50%;
+            transition: transform 0.3s var(--ease-smooth);
+        }
+
+        .logo-dot:nth-child(2),
+        .logo-dot:nth-child(4),
+        .logo-dot:nth-child(6),
+        .logo-dot:nth-child(8) {
+            opacity: 0.4;
+        }
+
+        header .logo:hover .logo-dot:nth-child(1),
+        header .logo:hover .logo-dot:nth-child(5),
+        header .logo:hover .logo-dot:nth-child(9) {
+            transform: scale(1.3);
+            background: var(--color-primary);
+        }
+
+        .logo-text {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s var(--ease-smooth);
+            position: relative;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-secondary);
+            transition: width 0.3s var(--ease-smooth);
+        }
+
+        nav a:hover {
+            color: var(--color-primary);
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--color-primary);
+            color: white !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .nav-cta:hover {
+            background: var(--color-secondary);
+            transform: translateY(-2px);
+        }
+
+        .nav-cta:after {
+            display: none;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 5% 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 0.8s var(--ease-smooth) 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            line-height: 1.1;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .hero h1 .accent {
+            color: var(--color-secondary);
+            font-style: italic;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            max-width: 600px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s var(--ease-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(10, 77, 60, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-secondary);
+            box-shadow: 0 8px 30px rgba(20, 184, 166, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--color-surface);
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            position: relative;
+            z-index: 1;
+            padding: 2.5rem 5%;
+            background: white;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .trust-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+        }
+
+        .trust-item {
+            text-align: center;
+        }
+
+        .trust-item .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--color-secondary);
+            display: block;
+        }
+
+        .trust-item .label {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Section Styles */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 1rem;
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--color-surface);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .services-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            padding: 2.5rem;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(10, 77, 60, 0.1);
+            transition: all 0.4s var(--ease-smooth);
+            animation: fadeInUp 0.6s var(--ease-smooth) backwards;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--color-secondary);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.3);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+            font-family: 'DM Serif Display', serif;
+        }
+
+        .service-card p {
+            color: var(--color-text-muted);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .service-card ul {
+            list-style: none;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        .service-card ul li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .service-card ul li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-secondary);
+            font-weight: bold;
+        }
+
+        /* Demo Sections */
+        .demo-section {
+            background: var(--color-bg);
+        }
+
+        .demo-section:nth-child(even) {
+            background: white;
+        }
+
+        .demo-container {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Chatbot Demo */
+        .demo-phone {
+            background: #1F2937;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            max-width: 400px;
+            animation: fadeInUp 0.8s var(--ease-smooth) 0.3s backwards;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 30px;
+            background: #1F2937;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        .phone-header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 28px 28px 0 0;
+            padding: 2.5rem 1rem 1rem;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+        }
+
+        .business-avatar {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .business-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .chat-status {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            background: #F3F4F6;
+            padding: 1.5rem;
+            min-height: 400px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            display: flex;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .message.bot .message-bubble {
+            background: white;
+            color: var(--color-text);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .message.user .message-bubble {
+            background: var(--color-primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .quick-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .quick-options button {
+            background: var(--color-bg);
+            border: 1px solid #E5E7EB;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            color: var(--color-text);
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .quick-options button:hover {
+            background: white;
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 0.5rem 0;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--color-text-muted);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            30% {
+                transform: translateY(-8px);
+                opacity: 1;
+            }
+        }
+
+        .chat-input {
+            background: white;
+            border-radius: 0 0 28px 28px;
+            padding: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-family: 'Manrope', sans-serif;
+            background: var(--color-bg);
+        }
+
+        .chat-input button {
+            background: var(--color-primary);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Demo Explanation */
+        .demo-explanation {
+            padding-top: 1rem;
+            animation: fadeInUp 0.8s var(--ease-smooth) 0.5s backwards;
+        }
+
+        .demo-explanation h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--color-primary);
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+            align-items: start;
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-text h4 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .benefit-text p {
+            color: var(--color-text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .tech-note {
+            background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(224, 242, 241, 0.3));
+            padding: 1.25rem;
+            border-radius: 12px;
+            border-left: 3px solid var(--color-secondary);
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--color-text-muted);
+        }
+
+        .tech-note strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        /* Code Example */
+        .code-example {
+            margin-top: 1.5rem;
+            border: 2px solid rgba(20, 184, 166, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .code-example summary {
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(224, 242, 241, 0.3));
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--color-primary);
+            list-style: none;
+            transition: background 0.2s;
+        }
+
+        .code-example summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .code-example summary:hover {
+            background: rgba(224, 242, 241, 0.5);
+        }
+
+        .code-example[open] summary {
+            border-bottom: 2px solid rgba(20, 184, 166, 0.2);
+        }
+
+        .code-content {
+            padding: 1.5rem;
+        }
+
+        .code-intro {
+            margin-bottom: 1rem;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        .code-block {
+            background: #1E293B;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .code-header {
+            background: #0F172A;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .code-language {
+            color: #94A3B8;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .code-label {
+            color: #22D3EE;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .code-block pre {
+            margin: 0;
+            padding: 1.25rem;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #E2E8F0;
+        }
+
+        .code-explanation {
+            background: var(--color-bg);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .code-explanation h5 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--color-text);
+        }
+
+        .code-explanation ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .code-explanation li {
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-explanation p {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .code-explanation strong {
+            color: var(--color-primary);
+        }
+
+        /* Dashboard Demo */
+        .dashboard-frame {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid rgba(10, 77, 60, 0.1);
+            animation: fadeInUp 0.8s var(--ease-smooth) 0.3s backwards;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, rgba(250,250,249,0.95), rgba(224, 242, 241, 0.5));
+            padding: 1.5rem;
+            border-bottom: 2px solid rgba(20, 184, 166, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dash-title h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.35rem;
+            color: var(--color-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .last-updated {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .date-selector select {
+            padding: 0.5rem 1rem;
+            border: 2px solid rgba(20, 184, 166, 0.2);
+            border-radius: 8px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        .dashboard-grid {
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(224, 242, 241, 0.2));
+            padding: 1.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(20, 184, 166, 0.15);
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-color: var(--color-secondary);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-number {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-trend {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .stat-trend.positive {
+            color: #16A34A;
+        }
+
+        .chart-card {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(224, 242, 241, 0.2));
+            padding: 1.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(20, 184, 166, 0.15);
+        }
+
+        .chart-card h5 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+
+        .mini-chart {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-end;
+            height: 120px;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--color-secondary), var(--color-primary));
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s;
+            animation: growBar 0.8s ease;
+        }
+
+        @keyframes growBar {
+            from { height: 0; }
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .alert-card {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            padding: 1.25rem;
+            border-radius: 12px;
+            border: 2px solid var(--color-accent);
+        }
+
+        .alert-card h5 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+
+        .alert-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .alert-dot {
+            width: 8px;
+            height: 8px;
+            background: #DC2626;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .alert-dot.warning {
+            background: #F59E0B;
+        }
+
+        .alert-dot.success {
+            background: #16A34A;
+        }
+
+        /* Workflow Demo */
+        .workflow-visual {
+            background: linear-gradient(135deg, rgba(224, 242, 241, 0.4), rgba(255,255,255,0.8));
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(20, 184, 166, 0.2);
+            animation: fadeInUp 0.8s var(--ease-smooth) 0.3s backwards;
+        }
+
+        .workflow-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--color-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .workflow-flow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .workflow-step {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 12px;
+            min-width: 200px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border: 1px solid rgba(20, 184, 166, 0.1);
+        }
+
+        .workflow-step:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border-color: var(--color-secondary);
+        }
+
+        .workflow-step.trigger {
+            border: 2px solid var(--color-accent);
+        }
+
+        .workflow-step.action {
+            border: 2px solid var(--color-secondary);
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-text-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-name {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-detail {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            line-height: 1.4;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--color-secondary);
+            flex-shrink: 0;
+            font-weight: 700;
+        }
+
+        .workflow-platforms {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px dashed rgba(20, 184, 166, 0.3);
+        }
+
+        .platform-badge {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--color-text);
+            border: 2px solid rgba(20, 184, 166, 0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        /* Use Cases */
+        .use-cases {
+            background: white;
+        }
+
+        .industry-tabs {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2.5rem 0;
+        }
+
+        .industry-tab {
+            background: var(--color-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            font-weight: 500;
+        }
+
+        .industry-tab:hover {
+            background: white;
+            border-color: var(--color-secondary);
+        }
+
+        .industry-tab.active {
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+            color: white;
+            border-color: transparent;
+        }
+
+        .use-case-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .use-case {
+            display: none;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(224, 242, 241, 0.3));
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(20, 184, 166, 0.2);
+        }
+
+        .use-case.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .use-case-tag {
+            display: inline-block;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            border: 1px solid rgba(20, 184, 166, 0.2);
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid;
+        }
+
+        .metric-card.before {
+            border-color: #FCA5A5;
+        }
+
+        .metric-card.after {
+            border-color: #86EFAC;
+        }
+
+        .metric-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-card.before .metric-number {
+            color: #DC2626;
+        }
+
+        .metric-card.after .metric-number {
+            color: #16A34A;
+        }
+
+        .metric-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .metric-detail {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .arrow {
+            font-size: 2rem;
+            color: var(--color-secondary);
+        }
+
+        .solution-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(20, 184, 166, 0.2);
+        }
+
+        .solution-box h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-primary);
+        }
+
+        .results-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .results-list li {
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid var(--color-accent);
+            font-size: 0.95rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: var(--color-bg);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(224, 242, 241, 0.3));
+            border-radius: 20px;
+            border: 1px solid rgba(20, 184, 166, 0.15);
+            transition: all 0.3s;
+            animation: fadeInUp 0.6s var(--ease-smooth) backwards;
+        }
+
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.2s; }
+        .step:nth-child(3) { animation-delay: 0.3s; }
+        .step:nth-child(4) { animation-delay: 0.4s; }
+
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--color-secondary);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.75rem;
+            font-weight: 400;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.3);
+        }
+
+        .step h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+
+        .step p {
+            color: var(--color-text-muted);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            padding: 4rem 5%;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--color-primary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.3s;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            font-size: 1.1rem;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-alt {
+            margin-top: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-alt a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-text);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 2.5rem 5%;
+            text-align: center;
+        }
+
+        .footer-logo {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-logo .logo-icon {
+            margin: 0 auto;
+        }
+
+        .footer-logo .logo-dot {
+            background: white;
+        }
+
+        .footer-logo .logo-text {
+            color: white;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .demo-phone {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-card,
+            .alert-card {
+                grid-column: span 2;
+            }
+
+            .workflow-flow {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+                align-self: center;
+            }
+
+            .workflow-step {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .services-grid,
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .before-after {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+
+            .code-block pre {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .demo-phone {
+                max-width: 100%;
+            }
+
+            .trust-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-decoration">
+        <div class="flow-circle"></div>
+        <div class="flow-circle"></div>
+        <div class="flow-circle"></div>
+    </div>
+
+    <header>
+        <a href="#" class="logo">
+            <div class="logo-icon">
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+            </div>
+            <span class="logo-text">BreezeOps</span>
+        </a>
+        <nav>
+            <a href="#services">Services</a>
+            <a href="#examples">Examples</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#contact" class="nav-cta">Get Started</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">✨ Helping small businesses save 10+ hours per week</div>
+            <h1>Automate the <span class="accent">repetitive</span> so you can focus on what matters</h1>
+            <p class="hero-description">
+                I help small businesses automate repetitive work so you can focus on what actually matters: growing your business and serving your customers.
+            </p>
+            <div class="cta-group">
+                <a href="https://calendar.app.google/DSiNanLWfTgBU13ZA" class="btn btn-primary">
+                    📅 Book Free Consultation
+                </a>
+                <a href="#examples" class="btn btn-secondary">
+                    See Real Examples
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="trust-bar">
+        <div class="trust-content">
+            <div class="trust-item">
+                <span class="number">$30K+</span>
+                <span class="label">Saved annually</span>
+            </div>
+            <div class="trust-item">
+                <span class="number">100+</span>
+                <span class="label">Hours freed up</span>
+            </div>
+            <div class="trust-item">
+                <span class="number">5★</span>
+                <span class="label">Client rating</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="services" id="services">
+        <h2 class="section-title">What I Do</h2>
+        <p class="section-subtitle">
+            Simple automation that actually works - no complicated software, no tech jargon
+        </p>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>Smart Chatbots</h3>
+                <p>Let customers book appointments, get answers, and check their status 24/7 through WhatsApp or your website.</p>
+                <ul>
+                    <li>Answer common questions automatically</li>
+                    <li>Book appointments while you sleep</li>
+                    <li>Send updates to customers</li>
+                    <li>Works on WhatsApp & web</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Business Dashboards</h3>
+                <p>See your business performance at a glance without digging through spreadsheets.</p>
+                <ul>
+                    <li>Track sales & appointments</li>
+                    <li>Monitor customer satisfaction</li>
+                    <li>Spot trends early</li>
+                    <li>Updates in real-time</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>Workflow Automation</h3>
+                <p>Connect your tools so they work together - when something happens in one app, the right things happen everywhere else.</p>
+                <ul>
+                    <li>Automatic appointment reminders</li>
+                    <li>Client follow-up sequences</li>
+                    <li>Data syncing between apps</li>
+                    <li>Custom to your business</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h2 class="section-title">See It In Action</h2>
+        <p class="section-subtitle">
+            Here's what your customers will see
+        </p>
+
+        <div class="demo-container">
+            <div class="demo-phone">
+                <div class="phone-notch"></div>
+                <div class="phone-header">
+                    <div class="chat-header">
+                        <div class="business-avatar">🏥</div>
+                        <div class="chat-title">
+                            <div class="business-name">Coastal Medical Clinic</div>
+                            <div class="chat-status">● Online</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-messages">
+                    <div class="message bot">
+                        <div class="message-bubble">
+                            Hi! 👋 I'm the Coastal Medical assistant. I can help you:
+                            <div class="quick-options">
+                                <button>📅 Book Appointment</button>
+                                <button>🕐 Check Hours</button>
+                                <button>📍 Get Directions</button>
+                                <button>💬 Ask a Question</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message user">
+                        <div class="message-bubble">Book appointment</div>
+                    </div>
+                    <div class="message bot">
+                        <div class="message-bubble">
+                            Great! What type of appointment?
+                            <div class="quick-options">
+                                <button>👨‍⚕️ General Checkup</button>
+                                <button>💉 Vaccination</button>
+                                <button>🩺 Sick Visit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message user">
+                        <div class="message-bubble">General checkup</div>
+                    </div>
+                    <div class="message bot typing">
+                        <div class="message-bubble">
+                            <div class="typing-indicator">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Type a message..." disabled>
+                    <button>📤</button>
+                </div>
+            </div>
+
+            <div class="demo-explanation">
+                <h3>Why this is a game-changer</h3>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">⏰</div>
+                    <div class="benefit-text">
+                        <h4>Works 24/7 Without Breaks</h4>
+                        <p>Customers can book appointments at 11pm on Sunday. Your staff can focus on in-person service during business hours.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">🎯</div>
+                    <div class="benefit-text">
+                        <h4>Handles Repetitive Questions</h4>
+                        <p>"What are your hours?" "Where are you located?" The bot answers instantly, every time.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">📱</div>
+                    <div class="benefit-text">
+                        <h4>Customers Use Their Preferred Channel</h4>
+                        <p>Works on WhatsApp, your website, or Facebook Messenger.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔄</div>
+                    <div class="benefit-text">
+                        <h4>Syncs With Your Calendar</h4>
+                        <p>Bookings go straight into your scheduling system. No double-booking, no manual entry.</p>
+                    </div>
+                </div>
+
+                <div class="tech-note">
+                    <strong>How it's built:</strong> Using tools like Zapier, Make.com, or custom APIs, the chatbot connects to your booking system and updates in real-time. Setup takes 1-2 weeks, then it runs on autopilot.
+                </div>
+
+                <details class="code-example">
+                    <summary>🔧 For the tech-curious: See the code behind it</summary>
+                    <div class="code-content">
+                        <p class="code-intro">Here's a simplified example of how the chatbot handles appointment booking:</p>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">JavaScript / Node.js</span>
+                                <span class="code-label">Webhook Handler</span>
+                            </div>
+                            <pre><code><span style="color: #94A3B8;">// When customer clicks "Book Appointment"</span>
+<span style="color: #C792EA;">async function</span> <span style="color: #82AAFF;">handleBooking</span>(<span style="color: #F78C6C;">message</span>, <span style="color: #F78C6C;">customer</span>) {
+  <span style="color: #94A3B8;">// 1. Check available time slots</span>
+  <span style="color: #C792EA;">const</span> <span style="color: #F78C6C;">slots</span> = <span style="color: #C792EA;">await</span> calendar.<span style="color: #82AAFF;">getAvailableSlots</span>({
+    date: message.preferredDate,
+    service: <span style="color: #C3E88D;">'general-checkup'</span>
+  });
+  
+  <span style="color: #94A3B8;">// 2. Send options to customer</span>
+  <span style="color: #C792EA;">await</span> chatbot.<span style="color: #82AAFF;">sendMessage</span>({
+    to: customer.phone,
+    text: <span style="color: #C3E88D;">'Available times:'</span>,
+    buttons: slots.<span style="color: #82AAFF;">map</span>(slot => ({
+      text: slot.time,
+      value: slot.id
+    }))
+  });
+  
+  <span style="color: #94A3B8;">// 3. Create appointment & send confirmation</span>
+  <span style="color: #C792EA;">const</span> <span style="color: #F78C6C;">booking</span> = <span style="color: #C792EA;">await</span> calendar.<span style="color: #82AAFF;">createAppointment</span>({
+    customer: customer.name,
+    slot: selectedSlot
+  });
+  
+  <span style="color: #94A3B8;">// 4. Schedule automatic reminder</span>
+  <span style="color: #C792EA;">await</span> scheduler.<span style="color: #82AAFF;">create</span>({
+    sendAt: booking.date - <span style="color: #F78C6C;">24</span>hours,
+    message: <span style="color: #C3E88D;">'Reminder: Appointment tomorrow'</span>
+  });
+}</code></pre>
+                        </div>
+
+                        <div class="code-explanation">
+                            <h5>What this does:</h5>
+                            <ul>
+                                <li>✅ Connects to your calendar API</li>
+                                <li>✅ Shows only available time slots</li>
+                                <li>✅ Books the appointment instantly</li>
+                                <li>✅ Automatically schedules reminder messages</li>
+                            </ul>
+                            <p><strong>You don't need to write this yourself</strong> — I handle the technical implementation. This is just to show there's no "magic" — it's solid, reliable automation.</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h2 class="section-title">See Your Business at a Glance</h2>
+        <p class="section-subtitle">
+            Real-time dashboards that show what's working and what needs attention
+        </p>
+
+        <div class="demo-container">
+            <div class="dashboard-frame">
+                <div class="dashboard-header">
+                    <div class="dash-title">
+                        <h4>🏥 Coastal Medical - Weekly Overview</h4>
+                        <span class="last-updated">Last updated: 2 minutes ago</span>
+                    </div>
+                    <div class="date-selector">
+                        <select>
+                            <option>This Week</option>
+                            <option>Last Week</option>
+                            <option>This Month</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Revenue This Week</div>
+                            <div class="stat-number">$12,450</div>
+                            <div class="stat-trend positive">↑ 18% vs last week</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Appointments</div>
+                            <div class="stat-number">47</div>
+                            <div class="stat-trend positive">↑ 6 more than last week</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">❌</div>
+                        <div class="stat-info">
+                            <div class="stat-label">No-Show Rate</div>
+                            <div class="stat-number">8%</div>
+                            <div class="stat-trend positive">↓ Down from 12%</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Patient Satisfaction</div>
+                            <div class="stat-number">4.8/5</div>
+                            <div class="stat-trend">→ Same as last week</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <h5>Appointment Trends (Last 30 Days)</h5>
+                        <div class="mini-chart">
+                            <div class="chart-bar" style="height: 60%"></div>
+                            <div class="chart-bar" style="height: 75%"></div>
+                            <div class="chart-bar" style="height: 55%"></div>
+                            <div class="chart-bar" style="height: 80%"></div>
+                            <div class="chart-bar" style="height: 90%"></div>
+                            <div class="chart-bar" style="height: 85%"></div>
+                            <div class="chart-bar" style="height: 95%"></div>
+                        </div>
+                        <div class="chart-labels">
+                            <span>Week 1</span>
+                            <span>Week 2</span>
+                            <span>Week 3</span>
+                            <span>Week 4</span>
+                        </div>
+                    </div>
+
+                    <div class="alert-card">
+                        <h5>⚠️ Needs Attention</h5>
+                        <div class="alert-item">
+                            <span class="alert-dot"></span>
+                            <span>3 patients need follow-up calls</span>
+                        </div>
+                        <div class="alert-item">
+                            <span class="alert-dot warning"></span>
+                            <span>Thursday 2pm slot still open</span>
+                        </div>
+                        <div class="alert-item">
+                            <span class="alert-dot success"></span>
+                            <span>All staff timesheets submitted</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-explanation">
+                <h3>Why dashboards transform decision-making</h3>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">⚡</div>
+                    <div class="benefit-text">
+                        <h4>Spot Problems Before They're Critical</h4>
+                        <p>See rising no-show rates or declining bookings in real-time. Fix issues when they're small.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">📊</div>
+                    <div class="benefit-text">
+                        <h4>No More Spreadsheet Hunting</h4>
+                        <p>All your data in one place. Stop piecing together reports from 5 different tools.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">🎯</div>
+                    <div class="benefit-text">
+                        <h4>Make Data-Driven Decisions</h4>
+                        <p>"Should I hire another person?" "Is the new marketing working?" Answer with actual numbers.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">👥</div>
+                    <div class="benefit-text">
+                        <h4>Share With Your Team</h4>
+                        <p>Everyone sees the same numbers. Staff know how they're doing. Managers coach with real data.</p>
+                    </div>
+                </div>
+
+                <div class="tech-note">
+                    <strong>How it's built:</strong> Dashboards pull data from your existing systems using APIs. Built with Power BI, Data Studio, or custom solutions. Updates automatically every few minutes.
+                </div>
+
+                <details class="code-example">
+                    <summary>🔧 For the tech-curious: See the data pipeline code</summary>
+                    <div class="code-content">
+                        <p class="code-intro">Here's how we pull data from multiple sources:</p>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">Python</span>
+                                <span class="code-label">Data Pipeline</span>
+                            </div>
+                            <pre><code><span style="color: #C792EA;">import</span> pandas <span style="color: #C792EA;">as</span> pd
+
+<span style="color: #94A3B8;"># 1. Fetch data from booking system</span>
+<span style="color: #C792EA;">def</span> <span style="color: #82AAFF;">get_appointments</span>():
+    appointments = booking_api.<span style="color: #82AAFF;">get</span>(<span style="color: #C3E88D;">'/appointments'</span>)
+    <span style="color: #C792EA;">return</span> pd.<span style="color: #82AAFF;">DataFrame</span>(appointments)
+
+<span style="color: #94A3B8;"># 2. Calculate key metrics</span>
+<span style="color: #C792EA;">def</span> <span style="color: #82AAFF;">calculate_metrics</span>(df):
+    metrics = {
+        <span style="color: #C3E88D;">'revenue_this_week'</span>: df[<span style="color: #C3E88D;">'amount'</span>].<span style="color: #82AAFF;">sum</span>(),
+        <span style="color: #C3E88D;">'no_show_rate'</span>: (df[<span style="color: #C3E88D;">'status'</span>] == <span style="color: #C3E88D;">'no-show'</span>).<span style="color: #82AAFF;">sum</span>() / <span style="color: #82AAFF;">len</span>(df)
+    }
+    <span style="color: #C792EA;">return</span> metrics
+
+<span style="color: #94A3B8;"># 3. Update dashboard</span>
+<span style="color: #C792EA;">def</span> <span style="color: #82AAFF;">update_dashboard</span>():
+    df = <span style="color: #82AAFF;">get_appointments</span>()
+    metrics = <span style="color: #82AAFF;">calculate_metrics</span>(df)
+    dashboard.<span style="color: #82AAFF;">update</span>(metrics)
+
+<span style="color: #94A3B8;"># Run every 5 minutes</span>
+schedule.<span style="color: #82AAFF;">every</span>(<span style="color: #F78C6C;">5</span>).<span style="color: #82AAFF;">minutes</span>.<span style="color: #82AAFF;">do</span>(update_dashboard)</code></pre>
+                        </div>
+
+                        <div class="code-explanation">
+                            <h5>What this does:</h5>
+                            <ul>
+                                <li>✅ Pulls appointment data from your booking system</li>
+                                <li>✅ Calculates weekly metrics automatically</li>
+                                <li>✅ Updates your dashboard every 5 minutes</li>
+                                <li>✅ Sends alerts when metrics need attention</li>
+                            </ul>
+                            <p><strong>Works with any data source:</strong> Calendly, Square, Stripe, Google Sheets - if it has data, we can visualize it.</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h2 class="section-title">Connect Your Tools</h2>
+        <p class="section-subtitle">
+            When something happens in one app, the right things happen everywhere else - automatically
+        </p>
+
+        <div class="demo-container" style="display: block;">
+            <div class="workflow-visual">
+                <div class="workflow-title">Example: New Client Onboarding</div>
+                
+                <div class="workflow-flow">
+                    <div class="workflow-step trigger">
+                        <div class="step-icon">📋</div>
+                        <div class="step-content">
+                            <div class="step-label">Trigger</div>
+                            <div class="step-name">Contact Form Submitted</div>
+                            <div class="step-detail">Lead fills out your website form</div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="workflow-step action">
+                        <div class="step-icon">✉️</div>
+                        <div class="step-content">
+                            <div class="step-label">Action 1</div>
+                            <div class="step-name">Send Welcome Email</div>
+                            <div class="step-detail">Instant automated response</div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="workflow-step action">
+                        <div class="step-icon">📊</div>
+                        <div class="step-content">
+                            <div class="step-label">Action 2</div>
+                            <div class="step-name">Add to CRM</div>
+                            <div class="step-detail">Create contact automatically</div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="workflow-step action">
+                        <div class="step-icon">💬</div>
+                        <div class="step-content">
+                            <div class="step-label">Action 3</div>
+                            <div class="step-name">Notify Team on Slack</div>
+                            <div class="step-detail">"New lead: John from Acme Corp"</div>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="workflow-step action">
+                        <div class="step-icon">📅</div>
+                        <div class="step-content">
+                            <div class="step-label">Action 4</div>
+                            <div class="step-name">Schedule Follow-Up</div>
+                            <div class="step-detail">Reminder in 2 days if no response</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workflow-platforms">
+                    <div class="platform-badge">🌐 Website Form</div>
+                    <div class="platform-badge">📧 Gmail</div>
+                    <div class="platform-badge">📊 HubSpot</div>
+                    <div class="platform-badge">💬 Slack</div>
+                    <div class="platform-badge">⚡ Zapier</div>
+                </div>
+            </div>
+
+            <div style="max-width: 1000px; margin: 3rem auto 0;">
+                <div class="demo-explanation">
+                    <h3>Why automation is your secret weapon</h3>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🚀</div>
+                        <div class="benefit-text">
+                            <h4>Instant Response Time</h4>
+                            <p>Lead fills out form at 11pm Saturday? They get an email in 30 seconds. Nobody waits, nobody forgets.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔄</div>
+                        <div class="benefit-text">
+                            <h4>Zero Manual Data Entry</h4>
+                            <p>Stop copying information from forms to spreadsheets to your CRM. Data flows automatically.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-text">
+                            <h4>Nothing Falls Through the Cracks</h4>
+                            <p>Every lead gets followed up. Every appointment gets confirmed. The system never forgets.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⏱️</div>
+                        <div class="benefit-text">
+                            <h4>Scales Without Hiring</h4>
+                            <p>Handle 10 leads per week or 100 - the automation handles it the same.</p>
+                        </div>
+                    </div>
+
+                    <div class="tech-note">
+                        <strong>How it's built:</strong> Using platforms like Zapier, Make.com, or Power Automate to connect your tools. Each "action" is triggered by an event. Setup time: typically 1-3 days per workflow.
+                    </div>
+
+                    <details class="code-example">
+                        <summary>🔧 For the tech-curious: See the automation logic</summary>
+                        <div class="code-content">
+                            <p class="code-intro">Here's the code that powers a multi-step workflow:</p>
+                            
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-language">JavaScript / Zapier-style</span>
+                                    <span class="code-label">Workflow Handler</span>
+                                </div>
+                                <pre><code><span style="color: #94A3B8;">// Triggered when contact form is submitted</span>
+<span style="color: #C792EA;">async function</span> <span style="color: #82AAFF;">handleNewLead</span>(<span style="color: #F78C6C;">formData</span>) {
+  <span style="color: #C792EA;">const</span> lead = {
+    name: formData.name,
+    email: formData.email,
+    company: formData.company
+  };
+
+  <span style="color: #94A3B8;">// Step 1: Send welcome email</span>
+  <span style="color: #C792EA;">await</span> email.<span style="color: #82AAFF;">send</span>({
+    to: lead.email,
+    template: <span style="color: #C3E88D;">'welcome-email'</span>
+  });
+
+  <span style="color: #94A3B8;">// Step 2: Add to CRM</span>
+  <span style="color: #C792EA;">const</span> contact = <span style="color: #C792EA;">await</span> crm.<span style="color: #82AAFF;">createContact</span>(lead);
+
+  <span style="color: #94A3B8;">// Step 3: Notify team on Slack</span>
+  <span style="color: #C792EA;">await</span> slack.<span style="color: #82AAFF;">sendMessage</span>({
+    channel: <span style="color: #C3E88D;">'#new-leads'</span>,
+    text: <span style="color: #C3E88D;">`🎉 New lead: ${lead.name}`</span>
+  });
+
+  <span style="color: #94A3B8;">// Step 4: Schedule follow-up</span>
+  <span style="color: #C792EA;">await</span> scheduler.<span style="color: #82AAFF;">create</span>({
+    triggerAt: <span style="color: #F78C6C;">2</span> days,
+    action: <span style="color: #C3E88D;">'send-followup-email'</span>
+  });
+}</code></pre>
+                            </div>
+
+                            <div class="code-explanation">
+                                <h5>What this does:</h5>
+                                <ul>
+                                    <li>✅ Sends personalized welcome email within seconds</li>
+                                    <li>✅ Creates contact in your CRM</li>
+                                    <li>✅ Notifies your team with actionable buttons</li>
+                                    <li>✅ Schedules intelligent follow-up</li>
+                                </ul>
+                                <p><strong>The beauty of automation:</strong> This entire 4-step process takes 2-3 seconds. At 50 leads/month, that's 4-8 hours saved.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases" id="examples">
+        <h2 class="section-title">Real Results from Real Businesses</h2>
+        <p class="section-subtitle">
+            See how businesses like yours benefit
+        </p>
+
+        <div class="industry-tabs">
+            <div class="industry-tab active" onclick="showUseCase('doctors')">
+                🏥 Doctor's Office
+            </div>
+            <div class="industry-tab" onclick="showUseCase('carshops')">
+                🚗 Auto Shop
+            </div>
+            <div class="industry-tab" onclick="showUseCase('lawfirms')">
+                ⚖️ Law Firm
+            </div>
+            <div class="industry-tab" onclick="showUseCase('groomers')">
+                🐕 Pet Groomer
+            </div>
+            <div class="industry-tab" onclick="showUseCase('realestate')">
+                🏠 Real Estate
+            </div>
+        </div>
+
+        <div class="use-case-container">
+            <div class="use-case active" id="doctors">
+                <div class="use-case-tag">🏥 Doctor's Office</div>
+                
+                <div class="before-after">
+                    <div class="metric-card before">
+                        <div class="metric-number">25%</div>
+                        <div class="metric-label">No-Show Rate</div>
+                        <div class="metric-detail">$15K/month lost revenue</div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="metric-card after">
+                        <div class="metric-number">7%</div>
+                        <div class="metric-label">No-Show Rate</div>
+                        <div class="metric-detail">$12K/month recovered</div>
+                    </div>
+                </div>
+
+                <div class="solution-box">
+                    <h4>What we did</h4>
+                    <p>Set up automatic SMS and email reminders sent 48 hours and 4 hours before each appointment, with a self-service rescheduling link.</p>
+                </div>
+
+                <ul class="results-list">
+                    <li>✅ No-shows dropped from 25% to 7%</li>
+                    <li>✅ 15 hours/week saved on confirmations</li>
+                    <li>✅ $12,200/month in recovered revenue</li>
+                    <li>✅ Front desk staff much happier</li>
+                </ul>
+            </div>
+
+            <div class="use-case" id="carshops">
+                <div class="use-case-tag">🚗 Auto Repair Shop</div>
+                
+                <div class="before-after">
+                    <div class="metric-card before">
+                        <div class="metric-number">40+</div>
+                        <div class="metric-label">Daily Status Calls</div>
+                        <div class="metric-detail">Constant interruptions</div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="metric-card after">
+                        <div class="metric-number">4</div>
+                        <div class="metric-label">Daily Calls</div>
+                        <div class="metric-detail">90% reduction</div>
+                    </div>
+                </div>
+
+                <div class="solution-box">
+                    <h4>What we did</h4>
+                    <p>Created a WhatsApp bot that automatically sends "Your car is ready!" notifications when mechanics update job status.</p>
+                </div>
+
+                <ul class="results-list">
+                    <li>✅ 90% fewer "is my car ready?" calls</li>
+                    <li>✅ Real-time visibility for the whole team</li>
+                    <li>✅ Customers love the proactive updates</li>
+                    <li>✅ Staff focus on repairs, not phones</li>
+                </ul>
+            </div>
+
+            <div class="use-case" id="lawfirms">
+                <div class="use-case-tag">⚖️ Law Firm</div>
+                
+                <div class="before-after">
+                    <div class="metric-card before">
+                        <div class="metric-number">3-5</div>
+                        <div class="metric-label">Days to Respond</div>
+                        <div class="metric-detail">40% of leads lost</div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="metric-card after">
+                        <div class="metric-number">&lt;1hr</div>
+                        <div class="metric-label">Response Time</div>
+                        <div class="metric-detail">40% higher conversion</div>
+                    </div>
+                </div>
+
+                <div class="solution-box">
+                    <h4>What we did</h4>
+                    <p>Built an automated intake system with instant acknowledgment emails, scheduled follow-up sequences, and case tracking.</p>
+                </div>
+
+                <ul class="results-list">
+                    <li>✅ Same-day response to all new leads</li>
+                    <li>✅ 40% increase in client conversions</li>
+                    <li>✅ All client data centrally organized</li>
+                    <li>✅ Never miss a follow-up</li>
+                </ul>
+            </div>
+
+            <div class="use-case" id="groomers">
+                <div class="use-case-tag">🐕 Dog Grooming Salon</div>
+                
+                <div class="before-after">
+                    <div class="metric-card before">
+                        <div class="metric-number">35%</div>
+                        <div class="metric-label">Rebook Rate</div>
+                        <div class="metric-detail">Losing regular customers</div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="metric-card after">
+                        <div class="metric-number">68%</div>
+                        <div class="metric-label">Rebook Rate</div>
+                        <div class="metric-detail">Calendar stays full</div>
+                    </div>
+                </div>
+
+                <div class="solution-box">
+                    <h4>What we did</h4>
+                    <p>Set up "Fluffy is due for grooming!" reminder texts sent 4-6 weeks after each appointment with a self-service booking link.</p>
+                </div>
+
+                <ul class="results-list">
+                    <li>✅ Rebook rate nearly doubled</li>
+                    <li>✅ Calendar consistently full</li>
+                    <li>✅ Customers love the helpful reminders</li>
+                    <li>✅ Zero manual outreach needed</li>
+                </ul>
+            </div>
+
+            <div class="use-case" id="realestate">
+                <div class="use-case-tag">🏠 Real Estate Agent</div>
+                
+                <div class="before-after">
+                    <div class="metric-card before">
+                        <div class="metric-number">40%</div>
+                        <div class="metric-label">Leads Lost</div>
+                        <div class="metric-detail">Falling through cracks</div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="metric-card after">
+                        <div class="metric-number">0%</div>
+                        <div class="metric-label">Leads Lost</div>
+                        <div class="metric-detail">Every lead tracked</div>
+                    </div>
+                </div>
+
+                <div class="solution-box">
+                    <h4>What we did</h4>
+                    <p>Connected all lead sources (Zillow, website, referrals) to automatically capture leads, send nurture sequences, and track all activity.</p>
+                </div>
+
+                <ul class="results-list">
+                    <li>✅ Zero leads lost or forgotten</li>
+                    <li>✅ 3 extra closings per month</li>
+                    <li>✅ 10 hours/week saved on email</li>
+                    <li>✅ Complete pipeline visibility</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <h2 class="section-title">How We Work Together</h2>
+        <p class="section-subtitle">
+            No complicated onboarding. No confusing tech talk. Just simple steps to get you automated.
+        </p>
+
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Free Consultation</h3>
+                <p>We chat for 30 minutes about your biggest time-wasters and what you wish you could automate. No pressure, no sales pitch.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Custom Plan</h3>
+                <p>I create a simple plan showing exactly what we'll automate, how it'll work, and what you'll save. Clear pricing, no surprises.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Quick Setup</h3>
+                <p>I build and test everything. You review it, give feedback, and we tweak until it's perfect. Usually takes 1-2 weeks.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Ongoing Support</h3>
+                <p>I train your team, provide simple guides, and stay available for questions. You're never left figuring things out alone.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <h2>Ready to get your time back?</h2>
+        <p>
+            Let's talk about how automation can help your business. 
+            Book a free 30-minute call—no commitment, just friendly conversation about what's possible.
+        </p>
+        <a href="https://calendar.app.google/DSiNanLWfTgBU13ZA" class="btn-white">📅 Schedule Your Free Call</a>
+        <p class="contact-alt">
+            Prefer email? Reach out at <a href="mailto:hello@breezeops.com">hello@breezeops.com</a>
+        </p>
+    </section>
+
+    <footer>
+        <div class="footer-logo">
+            <div class="logo-icon">
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+                <div class="logo-dot"></div>
+            </div>
+            <span class="logo-text">BreezeOps</span>
+        </div>
+        <p>&copy; 2026 BreezeOps. Helping small businesses work smarter, not harder.</p>
+    </footer>
+
+    <script>
+        function showUseCase(industry) {
+            document.querySelectorAll('.use-case').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.industry-tab').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            document.getElementById(industry).classList.add('active');
+            event.target.closest('.industry-tab').classList.add('active');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
